@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  selenoid:
+    image: aerokube/selenoid:latest
+    network_mode: bridge
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./browser.json:/etc/selenoid/browsers.json:ro
+    command: ["-limit", "5", "-session-attempt-timeout", "1m"]
+    ports:
+      - "4444:4444"
+
+  selenoid-ui:
+    image: aerokube/selenoid-ui:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SELENOID_URI=http://selenoid:4444
+    depends_on:
+      - selenoid
