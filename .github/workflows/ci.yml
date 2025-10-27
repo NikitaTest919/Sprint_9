@@ -37,7 +37,7 @@ jobs:
         run: docker stop selenoid && docker rm selenoid
 
       - name: Upload Allure Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure_results
